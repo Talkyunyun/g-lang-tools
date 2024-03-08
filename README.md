@@ -12,19 +12,6 @@
 
 ## File List
 
-- [GBooleanTools](#GBooleanTools)
-- [GCacheTools](#GCacheTools)
-- [GCookieTools](#GCookieTools)
-- [GDateTools](#GDateTools)
-- [GDeviceTools](#GDeviceTools)
-- [GEncryptTools](#GEncryptTools)
-- [GFileTools](#GFileTools)
-- [GHtmlTools](#GHtmlTools)
-- [GListTools](#GListTools)
-- [GMapTools](#GMapTools)
-- [GNumberTools](#GNumberTools)
-- [GStringTools](#GStringTools)
-- [GUrlTools](#GUrlTools)
 
 ## Browser Support
 
@@ -48,17 +35,6 @@ $ yarn add g-lang-tools
 
 ## Usage
 
-## GBooleanTools
-```javascript
-import { GBooleanTools } from 'g-lang-tools';
-
-
-GBooleanTools.valueOf(value);
-GBooleanTools.toString(value);
-GBooleanTools.isBoolean(value);
-GBooleanTools.isTrue(value);
-GBooleanTools.isFalse(value);
-```
 
 
 ## License
