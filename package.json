@@ -7,6 +7,14 @@
         "name": "Gene Yang",
         "url": "https://github.com/Talkyunyun"
     },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Talkyunyun/g-lang-tools.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Talkyunyun/g-lang-tools/issues"
+    },
+    "homepage": "https://www.tool-box.vip",
     "license": "MIT",
     "main": "index.js",
     "module": "index.js",
@@ -36,5 +44,6 @@
         "axios": "^1.6.7",
         "crypto-js": "^4.2.0",
         "dayjs": "^1.11.10"
-    }
+    },
+    "contributors": []
 }
