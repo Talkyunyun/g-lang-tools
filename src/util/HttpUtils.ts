@@ -40,7 +40,8 @@ export default class HttpUtils {
         HttpUtils.CANCEL_TOKENS = new Map<string, Canceler>();
         HttpUtils.AXIOS = axios.create({
             baseURL: HttpUtils.CONFIG.baseURL,
-            timeout: HttpUtils.CONFIG.timeout
+            timeout: HttpUtils.CONFIG.timeout,
+            withCredentials: true
         });
 
         // 请求头统一处理
