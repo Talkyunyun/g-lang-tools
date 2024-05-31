@@ -71,6 +71,14 @@ export default class HttpUtils {
     }
 
     /**
+     * 获取axios对象
+     * 业务可自行扩展操作
+     */
+    public static getAxios() {
+        return HttpUtils.AXIOS;
+    }
+
+    /**
      * GET请求
      * @param url 地址
      * @param params get参数
@@ -78,6 +86,15 @@ export default class HttpUtils {
      */
     public get<T>(url: string, params: Record<string, any> = {}): Promise<T> {
         return this.request(NETWORK_METHOD_ENUM.GET, url, {params});
+    }
+
+    /**
+     * delete请求
+     * @param url
+     * @param params
+     */
+    public delete<T>(url: string, params: Record<string, any> = {}): Promise<T> {
+        return this.request(NETWORK_METHOD_ENUM.DELETE, url, {params});
     }
 
     /**

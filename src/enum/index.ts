@@ -12,7 +12,8 @@ export enum BOOLEAN_ENUM {
 
 export enum NETWORK_METHOD_ENUM {
     GET = "GET",
-    POST = "POST"
+    POST = "POST",
+    DELETE = "DELETE",
 }
 
 export enum VAR_TYPE_ENUM {
