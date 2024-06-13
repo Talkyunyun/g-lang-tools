@@ -13,6 +13,7 @@ export enum BOOLEAN_ENUM {
 export enum NETWORK_METHOD_ENUM {
     GET = "GET",
     POST = "POST",
+    PUT = "PUT",
     DELETE = "DELETE",
 }
 

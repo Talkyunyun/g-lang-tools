@@ -20,10 +20,30 @@ import NetworkError from "../error/NetworkError";
 import {NETWORK_METHOD_ENUM} from "../enum";
 
 export interface IHttpConfig {
+    /**
+     * 请求基础地址
+     */
     baseURL: string;
+
+    /**
+     * 请求超时时间
+     */
     timeout: number;
+
+    /**
+     * 文件上传超时时间
+     */
     fileUploadTimeout: number;
+
+    /**
+     * 签名密钥
+     */
     signSecret ?: string;
+
+    /**
+     * 相同的请求是否需要取消
+     */
+    sameRequestCancel?: boolean;
 }
 
 export default class HttpUtils {
@@ -125,6 +145,33 @@ export default class HttpUtils {
     }
 
     /**
+     * put普通请求
+     * @param url 地址
+     * @param body body参数
+     * @param params get参数
+     * @throws NetworkError
+     */
+    public put<T>(url: string, body: Record<string, any> = {}, params: Record<string, any> = {}): Promise<T> {
+        return this.request(NETWORK_METHOD_ENUM.PUT, url, {params, data: Qs.stringify(body)});
+    }
+
+    /**
+     * putByJson请求
+     * @param url 地址
+     * @param body body参数
+     * @param params get参数
+     * @throws NetworkError
+     */
+    public putByJson<T>(url: string, body: Record<string, any> = {}, params: Record<string, any> = {}): Promise<T> {
+        return this.request(NETWORK_METHOD_ENUM.PUT, url, {
+            params, data: JSON.stringify(body),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+    }
+
+    /**
      * 文件上传
      * @param url 地址
      * @param body body参数
@@ -150,16 +197,22 @@ export default class HttpUtils {
     private request<T>(method: NETWORK_METHOD_ENUM, url: string, config?: AxiosRequestConfig): Promise<T> {
         return new Promise((resolve, reject) => {
             try {
-                const cancelToken = axios.CancelToken;
-                const source = cancelToken.source();
-                const key = HttpUtils.getRequestKey(method, url, config?.params, config?.data);
-                if (HttpUtils.CANCEL_TOKENS.has(key)) {
-                    const canceler = HttpUtils.CANCEL_TOKENS.get(key);
-                    // 如果有相同的请求正在进行，取消上一个请求
-                    if (canceler) { canceler(); }
+                let key: string | undefined;
+                const requestConfig: AxiosRequestConfig = {method, url, ...config};
+                if (HttpUtils.CONFIG.sameRequestCancel) {
+                    const cancelToken = axios.CancelToken;
+                    const source = cancelToken.source();
+                    key = HttpUtils.getRequestKey(method, url, config?.params, config?.data);
+                    if (HttpUtils.CANCEL_TOKENS.has(key)) {
+                        const canceler = HttpUtils.CANCEL_TOKENS.get(key);
+                        // 如果有相同的请求正在进行，取消上一个请求
+                        if (canceler) { canceler(); }
+                    }
+                    HttpUtils.CANCEL_TOKENS.set(key, source.cancel);
+                    requestConfig.cancelToken = source.token;
                 }
-                HttpUtils.CANCEL_TOKENS.set(key, source.cancel);
-                HttpUtils.AXIOS.request({method, url, ...config, cancelToken: source.token}).then((response) => {
+
+                HttpUtils.AXIOS.request(requestConfig).then((response) => {
                     if (!response.data) {
                         throw new Error("The response body content is empty");
                     }
@@ -176,7 +229,7 @@ export default class HttpUtils {
 
                     reject(new NetworkError(false, undefined, error))
                 }).finally(() => {
-                    HttpUtils.CANCEL_TOKENS.delete(key);
+                    key && HttpUtils.CANCEL_TOKENS.delete(key);
                 });
             } catch (e) {
                 reject(new NetworkError(false, undefined, e))
