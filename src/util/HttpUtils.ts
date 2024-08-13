@@ -124,7 +124,12 @@ export default class HttpUtils {
      * @param params
      */
     public deleteByJson<T>(url: string, body: Record<string, any>, params: Record<string, any> = {}): Promise<T> {
-        return this.request(NETWORK_METHOD_ENUM.DELETE, url, {params, data: Qs.stringify(body)});
+        return this.request(NETWORK_METHOD_ENUM.DELETE, url, {
+            params, data: JSON.stringify(body),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
     }
 
     /**
