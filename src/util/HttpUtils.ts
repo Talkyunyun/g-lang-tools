@@ -118,6 +118,16 @@ export default class HttpUtils {
     }
 
     /**
+     * delete请求
+     * @param url
+     * @param body
+     * @param params
+     */
+    public deleteByJson<T>(url: string, body: Record<string, any>, params: Record<string, any> = {}): Promise<T> {
+        return this.request(NETWORK_METHOD_ENUM.DELETE, url, {params, data: Qs.stringify(body)});
+    }
+
+    /**
      * POST普通请求
      * @param url 地址
      * @param body body参数
@@ -197,21 +207,18 @@ export default class HttpUtils {
     private request<T>(method: NETWORK_METHOD_ENUM, url: string, config?: AxiosRequestConfig): Promise<T> {
         return new Promise((resolve, reject) => {
             try {
-                let key: string | undefined;
                 const requestConfig: AxiosRequestConfig = {method, url, ...config};
-                if (HttpUtils.CONFIG.sameRequestCancel) {
-                    const cancelToken = axios.CancelToken;
-                    const source = cancelToken.source();
-                    key = HttpUtils.getRequestKey(method, url, config?.params, config?.data);
-                    if (HttpUtils.CANCEL_TOKENS.has(key)) {
-                        const canceler = HttpUtils.CANCEL_TOKENS.get(key);
-                        // 如果有相同的请求正在进行，取消上一个请求
-                        if (canceler) { canceler(); }
-                    }
-                    HttpUtils.CANCEL_TOKENS.set(key, source.cancel);
-                    requestConfig.cancelToken = source.token;
-                }
+                const cancelToken = axios.CancelToken;
+                const source = cancelToken.source();
+                const key: string = HttpUtils.getRequestKey(method, url, config?.params, config?.data);
 
+                // 如果有相同的请求正在进行，取消上一个请求
+                if (HttpUtils.CONFIG.sameRequestCancel && HttpUtils.CANCEL_TOKENS.has(key)) {
+                    const canceler = HttpUtils.CANCEL_TOKENS.get(key);
+                    if (canceler) { canceler(); }
+                }
+                HttpUtils.CANCEL_TOKENS.set(key, source.cancel);
+                requestConfig.cancelToken = source.token;
                 HttpUtils.AXIOS.request(requestConfig).then((response) => {
                     if (!response.data) {
                         throw new Error("The response body content is empty");
@@ -221,15 +228,15 @@ export default class HttpUtils {
                 }).catch((error: AxiosError) => {
                     if (axios.isCancel(error)) {
                         return;
-                    //    @ts-ignore
+                    // @ts-ignore
                     } else if (error.response && error.response.status !== 200) {
-                        //    @ts-ignore
+                        // @ts-ignore
                         reject(new NetworkError(true, error.response.status, error))
                     }
 
                     reject(new NetworkError(false, undefined, error))
                 }).finally(() => {
-                    key && HttpUtils.CANCEL_TOKENS.delete(key);
+                    HttpUtils.CANCEL_TOKENS.delete(key);
                 });
             } catch (e) {
                 reject(new NetworkError(false, undefined, e))
