@@ -42,6 +42,10 @@ export {default as GStringUtils} from "./util/StringUtils";
 export {default as GUndefinedUtils} from "./util/UndefinedUtils";
 export {default as GUrlUtils} from "./util/UrlUtils";
 
+
+/********* [Net client] ********/
+export {default as GNetClient} from "./net";
+
 import NetworkError from "./error/NetworkError";
 import { OS_ENUM, NETWORK_METHOD_ENUM, BOOLEAN_ENUM } from "./enum";
 

@@ -48,7 +48,7 @@ export default class StringUtils extends Parent {
      * @param content
      * @return {boolean}
      */
-    public static isBlank(content: string | null): boolean {
+    public static isBlank(content?: string | null): boolean {
         return !content || content.trim().length === 0;
     }
 
@@ -56,7 +56,7 @@ export default class StringUtils extends Parent {
      * 判断字符串非空
      * @param content
      */
-    public static isNotBlank(content: string | null): boolean {
+    public static isNotBlank(content?: string | null): boolean {
         return !this.isBlank(content);
     }
 
