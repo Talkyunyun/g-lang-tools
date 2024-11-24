@@ -1,43 +1,27 @@
 import axios, {AxiosInstance, AxiosRequestConfig} from "axios";
-import EncryptUtils from "../util/EncryptUtils";
-import DateUtils from "../util/DateUtils";
 import Net from "./lib/Net";
 import TokenAbort from "./lib/TokenAbort";
-
-export enum NET_METHOD {
-    GET,
-    POST,
-    PUT,
-    DELETE,
-    PATCH,
-    HEAD,
-    OPTIONS,
-}
+import {GTypes} from "../type";
 
 export default class NetClient {
     private static INSTANCE: NetClient;
     private static AXIOS: AxiosInstance;
-    public static METHOD = NET_METHOD;
+
+    /**
+     * 支持方法列表
+     */
+    public static METHOD = GTypes.NetMethodTypes;
 
     /**
      * 构造器，必须私有，保证单例
      * @private
      */
-    private constructor(config: AxiosRequestConfig, secret?: string) {
+    private constructor(config: AxiosRequestConfig) {
         NetClient.AXIOS = axios.create(config);
 
         // 请求头统一处理
         NetClient.AXIOS.interceptors.request.use((config) => {
-            config.params = {
-                ...config.params,
-                _su : EncryptUtils.getUniqueValue(),
-                _t  : DateUtils.getCurrentTimestamp(true),
-            };
-
-            if (secret) {
-                config.params._sign = EncryptUtils.signForObject({...config.params}, secret);
-            }
-
+            config.params = {...config.params};
             return config;
         });
     }
@@ -46,12 +30,12 @@ export default class NetClient {
      * 实例获取方法
      * @return HttpUtils
      */
-    public static getInstance(config: AxiosRequestConfig, secret?: string) {
+    public static getInstance(config: AxiosRequestConfig) {
         if (NetClient.INSTANCE) {
             return NetClient.INSTANCE;
         }
 
-        return NetClient.INSTANCE = new NetClient(config, secret);
+        return NetClient.INSTANCE = new NetClient(config);
     }
 
     /**

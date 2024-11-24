@@ -1,6 +1,6 @@
 import Parent from "./Parent";
 import StringUtils from "./StringUtils";
-import {VAR_TYPE_ENUM} from "../enum";
+import {GTypes} from "../type";
 
 /**
  *
@@ -64,7 +64,7 @@ export default class FunctionUtils extends Parent {
      * @param value
      */
     public static isFunction(value: any): boolean {
-        return this.isType(value, VAR_TYPE_ENUM.FUNCTION);
+        return this.isType(value, GTypes.VarTypes.FUNCTION);
     }
 
     /**

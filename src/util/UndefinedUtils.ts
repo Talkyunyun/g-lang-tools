@@ -1,6 +1,6 @@
 import Parent from "./Parent";
 import StringUtils from "./StringUtils";
-import {VAR_TYPE_ENUM} from "../enum";
+import {GTypes} from "../type";
 
 /**
  *
@@ -18,7 +18,7 @@ export default class UndefinedUtils extends Parent {
      * @param value
      */
     public static isUndefined(value: any): boolean {
-        return this.isType(value, VAR_TYPE_ENUM.UNDEFINED);
+        return this.isType(value, GTypes.VarTypes.UNDEFINED);
     }
 
     /**

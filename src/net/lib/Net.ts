@@ -1,8 +1,8 @@
 import axios, {AxiosError, AxiosInstance, AxiosRequestConfig} from "axios";
-import {NET_METHOD} from "../index";
 import NetworkError from "../../error/NetworkError";
 import TokenAbort from "./TokenAbort";
 import Qs from "qs";
+import {GTypes} from "../../type";
 
 export default class Net {
     private readonly token: string;
@@ -29,8 +29,8 @@ export default class Net {
         return this;
     }
 
-    public setMethod(method: NET_METHOD) {
-        this.config.method = NET_METHOD[method];
+    public setMethod(method: GTypes.NetMethodTypes) {
+        this.config.method = GTypes.NetMethodTypes[method];
         return this;
     }
 

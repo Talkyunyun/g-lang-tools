@@ -1,6 +1,6 @@
 import Parent from "./Parent";
 import StringUtils from "./StringUtils";
-import {BOOLEAN_ENUM, VAR_TYPE_ENUM} from "../enum";
+import {GTypes} from "../type";
 
 /**
  *
@@ -17,15 +17,15 @@ export default class BooleanUtils extends Parent {
      * @param value
      */
     public static isBoolean(value: any): boolean {
-        return this.isType(value, VAR_TYPE_ENUM.BOOLEAN);
+        return this.isType(value, GTypes.VarTypes.BOOLEAN);
     }
 
     /**
      * boolean转字符串
      * @param value
      */
-    public static toString(value: boolean): BOOLEAN_ENUM {
-        return value ? BOOLEAN_ENUM.TRUE : BOOLEAN_ENUM.FALSE;
+    public static toString(value: boolean): GTypes.BooleanTypes {
+        return value ? GTypes.BooleanTypes.TRUE : GTypes.BooleanTypes.FALSE;
     }
 
     /**
@@ -38,9 +38,9 @@ export default class BooleanUtils extends Parent {
         }
 
         switch (value.toLowerCase()) {
-            case BOOLEAN_ENUM.TRUE:
+            case GTypes.BooleanTypes.TRUE:
                 return true;
-            case BOOLEAN_ENUM.FALSE:
+            case GTypes.BooleanTypes.FALSE:
                 return false;
         }
 

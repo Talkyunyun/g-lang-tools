@@ -1,5 +1,5 @@
 import Parent from "./Parent";
-import {VAR_TYPE_ENUM} from "../enum";
+import {GTypes} from "../type";
 
 /**
  *
@@ -16,7 +16,7 @@ export default class StringUtils extends Parent {
      * @param value
      */
     public static isString(value: any): boolean {
-        return this.isType(value, VAR_TYPE_ENUM.STRING);
+        return this.isType(value, GTypes.VarTypes.STRING);
     }
 
     /**

@@ -1,26 +1,17 @@
-import NetClient, {NET_METHOD} from "../src/net";
+import {GNet} from "../src";
 
-const client = NetClient.getInstance({
-    baseURL: "https://mdap-fb-api.huolala.work",
+const client = GNet.getInstance({
+    baseURL: "https://test-api.gene.work",
     timeout: 10000
-}, "sdfsfsdfdsfdsf");
-
-const req = client.createNet().setUrl("/getAppConfig?lang=cn")
-    .setMethod(NET_METHOD.GET)
+});
+client.createNet().setUrl("/getAppConfig?lang=cn")
+    .setMethod(GNet.METHOD.POST)
     .setQuery({
         age: 23, name: "dsfsdf",
-        identifier: "gCB91mLY8BC0hjvQjnnubjIAm8iCedVL6u5vCZCFlfhygpuPU8qWFYw+qlYhCzVHIFuIa0rwiGb9Mb0M2i/hbiJvUAZ/2G1v/sX9m/9xmUwlbAJc12kL7j6ftYqs19rqrAbDGoDaHAltDIgM+/cuM/NyfwtCz9RqllcbOt09GGE="
+        identifier: "xxxx+xxx/hbiJvUAZ/2G1v/xxx/xxx+/cuM/xxxx="
     })
     .setBody({
-        appId: "com.huolala.drive",
+        appId: "cn.gene.user",
         identifier: "dddd"
-    });
-
-req.send();
-req.send();
-req.send();
-req.send();
-setTimeout(() => {
-    NetClient.cancelAllRequests();
-}, 10);
+    }).send();
 

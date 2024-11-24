@@ -1,7 +1,7 @@
 import Parent from "./Parent";
 import UndefinedUtils from "./UndefinedUtils";
 import StringUtils from "./StringUtils";
-import {VAR_TYPE_ENUM} from "../enum";
+import {GTypes} from "../type";
 
 /**
  *
@@ -19,7 +19,7 @@ export default class ObjectUtils extends Parent {
      * @param value
      */
     public static isObject(value: any): boolean {
-        return this.isType(value, VAR_TYPE_ENUM.OBJECT);
+        return this.isType(value, GTypes.VarTypes.OBJECT);
     }
 
     /**

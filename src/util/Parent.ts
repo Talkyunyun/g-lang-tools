@@ -1,4 +1,4 @@
-import {VAR_TYPE_ENUM} from "../enum";
+import {GTypes} from "../type";
 
 /**
  *
@@ -18,7 +18,7 @@ export default class Parent {
      * @param type 类型，见EType枚举
      * @private
      */
-    protected static isType(value: any, type: VAR_TYPE_ENUM) {
+    protected static isType(value: any, type: GTypes.VarTypes) {
         return Object.prototype.toString.call(value) === type;
     }
 }

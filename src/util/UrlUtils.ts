@@ -7,7 +7,6 @@
  * @link  https://github.com/Talkyunyun <https://www.tool-box.vip>
  * @since 2.0
  */
-
 import ListUtils from "./ListUtils";
 import BooleanUtils from "./BooleanUtils";
 import NumberUtils from "./NumberUtils";
@@ -23,13 +22,13 @@ export default class UrlUtils {
      * 1. 会把undefined、null、空字符串、空数组、all过滤。
      * @param params
      */
-    public static filter(params: Map<string, any>): Map<string, any> {
+    public static filter(params?: Map<string, any>): Map<string, any> {
         const result = new Map<string, any>();
         if (!MapUtils.isMap(params)) {
             return result;
         }
 
-        params.forEach((value, key) => {
+        params?.forEach((value, key) => {
             // 过滤null和undefined
             if (UndefinedUtils.isUndefined(value) || NullUtils.isNull(value)) {
                 return;
@@ -58,7 +57,7 @@ export default class UrlUtils {
      * 1. 会把undefined、null、空字符串、空数组、all过滤。
      * @param params
      */
-    public static filterForObject(params: Record<string, any>): Record<string, any> {
+    public static filterForObject(params?: Record<string, any>): Record<string, any> {
         if (!ObjectUtils.isObject(params)) {
             return {};
         }

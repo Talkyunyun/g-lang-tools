@@ -17,7 +17,7 @@ import axios, {AxiosError, AxiosInstance, AxiosRequestConfig, Canceler} from 'ax
 import EncryptUtils from "./EncryptUtils";
 import DateUtils from "./DateUtils";
 import NetworkError from "../error/NetworkError";
-import {NETWORK_METHOD_ENUM} from "../enum";
+import {GTypes} from "../type";
 
 export interface IHttpConfig {
     /**
@@ -105,7 +105,7 @@ export default class HttpUtils {
      * @throws NetworkError
      */
     public get<T>(url: string, params: Record<string, any> = {}): Promise<T> {
-        return this.request(NETWORK_METHOD_ENUM.GET, url, {params});
+        return this.request(GTypes.NetMethodTypes.GET, url, {params});
     }
 
     /**
@@ -114,7 +114,7 @@ export default class HttpUtils {
      * @param params
      */
     public delete<T>(url: string, params: Record<string, any> = {}): Promise<T> {
-        return this.request(NETWORK_METHOD_ENUM.DELETE, url, {params});
+        return this.request(GTypes.NetMethodTypes.DELETE, url, {params});
     }
 
     /**
@@ -124,7 +124,7 @@ export default class HttpUtils {
      * @param params
      */
     public deleteByJson<T>(url: string, body: Record<string, any>, params: Record<string, any> = {}): Promise<T> {
-        return this.request(NETWORK_METHOD_ENUM.DELETE, url, {
+        return this.request(GTypes.NetMethodTypes.DELETE, url, {
             params, data: JSON.stringify(body),
             headers: {
                 'Content-Type': 'application/json'
@@ -140,7 +140,7 @@ export default class HttpUtils {
      * @throws NetworkError
      */
     public post<T>(url: string, body: Record<string, any> = {}, params: Record<string, any> = {}): Promise<T> {
-        return this.request(NETWORK_METHOD_ENUM.POST, url, {params, data: Qs.stringify(body)});
+        return this.request(GTypes.NetMethodTypes.POST, url, {params, data: Qs.stringify(body)});
     }
 
     /**
@@ -151,7 +151,7 @@ export default class HttpUtils {
      * @throws NetworkError
      */
     public postByJson<T>(url: string, body: Record<string, any> = {}, params: Record<string, any> = {}): Promise<T> {
-        return this.request(NETWORK_METHOD_ENUM.POST, url, {
+        return this.request(GTypes.NetMethodTypes.POST, url, {
             params, data: JSON.stringify(body),
             headers: {
                 'Content-Type': 'application/json'
@@ -167,7 +167,7 @@ export default class HttpUtils {
      * @throws NetworkError
      */
     public put<T>(url: string, body: Record<string, any> = {}, params: Record<string, any> = {}): Promise<T> {
-        return this.request(NETWORK_METHOD_ENUM.PUT, url, {params, data: Qs.stringify(body)});
+        return this.request(GTypes.NetMethodTypes.PUT, url, {params, data: Qs.stringify(body)});
     }
 
     /**
@@ -178,7 +178,7 @@ export default class HttpUtils {
      * @throws NetworkError
      */
     public putByJson<T>(url: string, body: Record<string, any> = {}, params: Record<string, any> = {}): Promise<T> {
-        return this.request(NETWORK_METHOD_ENUM.PUT, url, {
+        return this.request(GTypes.NetMethodTypes.PUT, url, {
             params, data: JSON.stringify(body),
             headers: {
                 'Content-Type': 'application/json'
@@ -194,7 +194,7 @@ export default class HttpUtils {
      * @throws NetworkError
      */
     public postFile<T>(url: string, body: any = {}, params: Record<string, any> = {}): Promise<T> {
-        return this.request(NETWORK_METHOD_ENUM.POST, url, {
+        return this.request(GTypes.NetMethodTypes.POST, url, {
             timeout: HttpUtils.CONFIG.fileUploadTimeout,
             params, data: body,
             headers: {'Content-Type': 'multipart/form-data'}
@@ -209,7 +209,7 @@ export default class HttpUtils {
      * @throws NetworkError
      * @private
      */
-    private request<T>(method: NETWORK_METHOD_ENUM, url: string, config?: AxiosRequestConfig): Promise<T> {
+    private request<T>(method: GTypes.NetMethodTypes, url: string, config?: AxiosRequestConfig): Promise<T> {
         return new Promise((resolve, reject) => {
             try {
                 const requestConfig: AxiosRequestConfig = {method, url, ...config};

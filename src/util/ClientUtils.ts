@@ -7,8 +7,8 @@
  * @link  https://github.com/Talkyunyun <https://www.tool-box.vip>
  * @since 2.0
  */
+import {GTypes} from "../type";
 
-import {OS_ENUM} from "../enum";
 export default class ClientUtils {
     /**
      * 判断环境是否是支付宝小程序
@@ -42,7 +42,7 @@ export default class ClientUtils {
      * @public
      */
     public static isIOS(): boolean {
-        return this.getOsFromUA() === OS_ENUM.IOS;
+        return this.getOsFromUA() === GTypes.OsTypes.IOS;
     }
 
     /**
@@ -51,7 +51,19 @@ export default class ClientUtils {
      * @public
      */
     public static isANDROID(): boolean {
-        return this.getOsFromUA() === OS_ENUM.ANDROID;
+        return this.getOsFromUA() === GTypes.OsTypes.ANDROID;
+    }
+
+    public static isMac(): boolean {
+        return this.getOsFromUA() === GTypes.OsTypes.MAC;
+    }
+
+    public static isWindows(): boolean {
+        return this.getOsFromUA() === GTypes.OsTypes.WINDOWS;
+    }
+
+    public static isHarmony(): boolean {
+        return this.getOsFromUA() === GTypes.OsTypes.HARMONY;
     }
 
     /**
@@ -126,21 +138,23 @@ export default class ClientUtils {
      * @return {string} OS_ENUM
      * @private
      */
-    public static getOsFromUA(): OS_ENUM {
+    public static getOsFromUA(): GTypes.OsTypes {
         try {
             const userAgent = window.navigator.userAgent;
             if (userAgent.match(/iPhone|iPad|iPod|iOS/i)) {
-                return OS_ENUM.IOS;
+                return GTypes.OsTypes.IOS;
             }
 
             if (userAgent.match(/Android/i)) {
-                return OS_ENUM.ANDROID;
+                return GTypes.OsTypes.ANDROID;
             }
+
+            // todo 判断是否是mac/windows/harmony等系统
         } catch (e) {
             console.warn("从UA中获取OS参数失败", e);
         }
 
-        return OS_ENUM.UNKNOWN;
+        return GTypes.OsTypes.UNKNOWN;
     }
 
     /**
