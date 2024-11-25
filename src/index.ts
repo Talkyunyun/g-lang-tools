@@ -17,6 +17,7 @@ export {default as GStringUtils} from "./util/StringUtils";
 export {default as GUndefinedUtils} from "./util/UndefinedUtils";
 export {default as GUrlUtils} from "./util/UrlUtils";
 export {default as GSetUtils} from "./util/SetUtils";
+export {default as GTypeUtils} from "./util/TypeUtils";
 
 /********* [Net client] ********/
 export {default as GNet} from "./net";
