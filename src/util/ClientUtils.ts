@@ -149,7 +149,17 @@ export default class ClientUtils {
                 return GTypes.OsTypes.ANDROID;
             }
 
-            // todo 判断是否是mac/windows/harmony等系统
+            if (userAgent.match(/OpenHarmony/i)) {
+                return GTypes.OsTypes.HARMONY;
+            }
+
+            if (userAgent.match(/mac/i)) {
+                return GTypes.OsTypes.MAC;
+            }
+
+            if (userAgent.match(/win/i)) {
+                return GTypes.OsTypes.WINDOWS;
+            }
         } catch (e) {
             console.warn("从UA中获取OS参数失败", e);
         }
