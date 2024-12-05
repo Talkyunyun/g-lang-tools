@@ -387,8 +387,7 @@ export default class UrlUtils {
         if (value == "0" || value.substring(0, 1) !== "0") {
             const number = NumberUtils.toNumber(value);
             if (NumberUtils.isNumber(number)) {
-                console.log('=====', number, value);
-                if (number && Number.MAX_SAFE_INTEGER >= number) {
+                if (number && number >= Number.MAX_SAFE_INTEGER) {
                     return BigIntUtils.toBigInt(value);
                 }
 
