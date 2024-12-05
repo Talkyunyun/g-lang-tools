@@ -1,6 +1,6 @@
 
 
-// import "./test.url";
+import "./test.url";
 // import "./test.http";
 // import './test.boolean';
 // import './test.cache';
@@ -14,4 +14,4 @@
 // import './test.string';
 
 // import "./test.html";
-import "./test.set";
+// import "./test.set";

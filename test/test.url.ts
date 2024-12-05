@@ -1,5 +1,5 @@
 import UrlUtils from "../src/util/UrlUtils";
-
+import BigIntUtils from "../src/util/BigIntUtils";
 
 let ddd = new Map<string, any>();
 ddd.set("name", "gene");
@@ -20,11 +20,7 @@ console.log('222', UrlUtils.filterForObject({
     obj: {}
 }));
 
-
-UrlUtils.updateCurrentSearchForObject({
-    "null":""
-});
-
+UrlUtils.updateCurrentSearchForObject({"null":""});
 
 //
 // console.log("undefined", UrlUtils.anyToString(undefined));
@@ -51,9 +47,6 @@ map.set("name", "dddd");
 map.set("is", false);
 
 // console.log("map", UrlUtils.anyToString(map));
-
-
-
 console.log('----', UrlUtils.getSearchByName("list1"));
 console.log('----', UrlUtils.getSearchByNameForString("list1"));
 
@@ -75,31 +68,42 @@ params.set("list3", [{"name": "age=ddd", "age": 23}]);
 params.set("obj1", {"name": 12});
 params.set("obj2", {});
 params.set("map", map);
-const data = UrlUtils.buildQuery(params);
-console.log(data);
-console.log(UrlUtils.buildQueryForObject({
-    adfsf: undefined,
-    cddd: null,
-    aaaa: "",
-    abc : "0086",
-    sdfds: "0",
-    name: "gene.yang",
-    nameCn: "杨云",
-    age: 10,
-    state: 0,
-    pState: -1,
-    isShow: false,
-    isEnd: true,
-    dtList: [1, 3, 4],
-    user: {id: 1, name: 'ddd'}
-}));
-
-
+params.set("bigNumber1", BigInt("12232342423432432423432432"));
+params.set("bigNumber2", 23232323);
+UrlUtils.updateCurrentSearch(params);
+// const data = UrlUtils.buildQuery(params);
+// console.log(data);
+// console.log(UrlUtils.buildQueryForObject({
+//     adfsf: undefined,
+//     cddd: null,
+//     aaaa: "",
+//     abc : "0086",
+//     sdfds: "0",
+//     name: "gene.yang",
+//     nameCn: "杨云",
+//     age: 10,
+//     state: 0,
+//     pState: -1,
+//     isShow: false,
+//     isEnd: true,
+//     dtList: [1, 3, 4],
+//     user: {id: 1, name: 'ddd'}
+// }));
 console.log(UrlUtils.getSearchAll());
 console.log(UrlUtils.getSearchAllForObject());
 
-//
-//
+let aa = params.get("bigNumber2");
+console.log('===bigNumber1====', aa);
+console.log('===bigNumber2====isBigInt', BigIntUtils.isBigInt(aa));
+console.log('===bigNumber3====toBigInt', BigIntUtils.toBigInt(aa));
+console.log('===bigNumber4====toString', BigIntUtils.toString(aa));
+console.log('===bigNumber5====formatMilli', BigIntUtils.formatMilli(aa));
+console.log('===bigNumber6====isEqZero', BigIntUtils.isEqZero(aa));
+console.log('===bigNumber7====isGtZero', BigIntUtils.isGtZero(aa));
+console.log('===bigNumber8====isLtZero', BigIntUtils.isLtZero(aa));
+console.log('===bigNumber9====isGtAndEqZero', BigIntUtils.isGtAndEqZero(aa));
+console.log('===bigNumber10====isLtAndEqZero', BigIntUtils.isLtAndEqZero(aa));
+
 // import {GUrlTools} from "../src/index";
 //
 // const value = GUrlTools.buildQuery({
@@ -122,4 +126,3 @@ console.log(UrlUtils.getSearchAllForObject());
 
 // console.log('getSearchAllValue ====> ', GUrlTools.getSearchAllValue());
 // console.log('getSearchAll ====> ', GUrlTools.getSearchAll());
-

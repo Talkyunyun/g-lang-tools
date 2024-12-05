@@ -15,6 +15,7 @@ import ObjectUtils from "./ObjectUtils";
 import StringUtils from "./StringUtils";
 import NullUtils from "./NullUtils";
 import UndefinedUtils from "./UndefinedUtils";
+import BigIntUtils from "./BigIntUtils";
 
 export default class UrlUtils {
     /**
@@ -326,6 +327,11 @@ export default class UrlUtils {
             return BooleanUtils.toString(value);
         }
 
+        // bigInt类型
+        if (BigIntUtils.isBigInt(value)) {
+            return BigIntUtils.toString(value);
+        }
+
         // 数字类型
         if (NumberUtils.isNumber(value)) {
             return NumberUtils.toString(value);
@@ -381,6 +387,11 @@ export default class UrlUtils {
         if (value == "0" || value.substring(0, 1) !== "0") {
             const number = NumberUtils.toNumber(value);
             if (NumberUtils.isNumber(number)) {
+                console.log('=====', number, value);
+                if (number && Number.MAX_SAFE_INTEGER >= number) {
+                    return BigIntUtils.toBigInt(value);
+                }
+
                 return number;
             }
         }

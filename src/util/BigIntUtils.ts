@@ -1,33 +1,30 @@
 import Parent from "./Parent";
 import {GTypes} from "../type";
+import BooleanUtils from "./BooleanUtils";
 
 /**
- * Number tools
+ * Big Int tools
  *
  * @author Gene Yang<729170207@qq.com>
  * @date  2024-03-07 15:02
  * @link  https://github.com/Talkyunyun <https://www.tool-box.vip>
  * @since 2.0
  */
-export default class NumberUtils extends Parent{
+export default class BigIntUtils extends Parent {
 
     /**
      * 判断类型是否为数字
      * @param value
      */
-    public static isNumber(value: any): boolean {
-        return this.isType(value, GTypes.VarTypes.NUMBER);
+    public static isBigInt(value: any): boolean {
+        return this.isType(value, GTypes.VarTypes.BIG_INT);
     }
 
     /**
      * number转字符串
      * @param value
      */
-    public static toString(value: number) {
-        if (isNaN(value)) {
-            return "";
-        }
-
+    public static toString(value: bigint) {
         return "" + value;
     }
 
@@ -37,13 +34,12 @@ export default class NumberUtils extends Parent{
      * @param value
      * @return {number}
      */
-    public static toNumber(value: any): number | undefined {
-        const num = Number(value);
-        if (isNaN(num)) {
-            return undefined;
+    public static toBigInt(value: any): bigint | undefined {
+        if (BooleanUtils.isBoolean(value)) {
+            return value ? BigInt(1) : BigInt(0);
         }
 
-        return num;
+        return BigInt(value);
     }
 
     /**
@@ -53,7 +49,7 @@ export default class NumberUtils extends Parent{
      * @returns {string}
      */
     public static formatMilli(value: any): string {
-        const number = this.toNumber(value);
+        const number = this.toBigInt(value);
         if (number === undefined) {
             return "0";
         }
@@ -66,8 +62,8 @@ export default class NumberUtils extends Parent{
      * @param value
      * @return {boolean}
      */
-    public static isGtZero(value: number): boolean {
-        return this.isNumber(value) && value > 0;
+    public static isGtZero(value: bigint): boolean {
+        return this.isBigInt(value) && value > 0;
     }
 
     /**
@@ -75,8 +71,8 @@ export default class NumberUtils extends Parent{
      * @param value
      * @return {boolean}
      */
-    public static isGtAndEqZero(value: number): boolean {
-        return this.isNumber(value) && value >= 0;
+    public static isGtAndEqZero(value: bigint): boolean {
+        return this.isBigInt(value) && value >= 0;
     }
 
     /**
@@ -84,8 +80,8 @@ export default class NumberUtils extends Parent{
      * @param value
      * @return {boolean}
      */
-    public static isEqZero(value: number): boolean {
-        return this.isNumber(value) && value == 0;
+    public static isEqZero(value: bigint): boolean {
+        return this.isBigInt(value) && value == BigInt(0);
     }
 
     /**
@@ -93,8 +89,8 @@ export default class NumberUtils extends Parent{
      * @param value
      * @return {boolean}
      */
-    public static isLtZero(value: number): boolean {
-        return this.isNumber(value) && value < 0;
+    public static isLtZero(value: bigint): boolean {
+        return this.isBigInt(value) && value < 0;
     }
 
     /**
@@ -102,7 +98,7 @@ export default class NumberUtils extends Parent{
      * @param value
      * @return {boolean}
      */
-    public static isLtAndEqZero(value: number): boolean {
-        return this.isNumber(value) && value <= 0;
+    public static isLtAndEqZero(value: bigint): boolean {
+        return this.isBigInt(value) && value <= 0;
     }
 }
