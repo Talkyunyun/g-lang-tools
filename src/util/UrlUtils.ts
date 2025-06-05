@@ -138,6 +138,26 @@ export default class UrlUtils {
     }
 
     /**
+     * 重置当前Url参数
+     * @param params
+     */
+    public static resetCurrentSearch(params: Map<string, any>) {
+        const {origin, pathname} = window.location;
+        const url = `${origin + pathname}?${this.buildQuery(params)}`;
+        window.history.replaceState({path: url}, '', url);
+    }
+
+    /**
+     * 重置当前Url参数
+     * @param params
+     */
+    public static resetCurrentSearchForObject(params: Record<string, any>) {
+        const {origin, pathname} = window.location;
+        const url = `${origin + pathname}?${this.buildQueryForObject(params)}`;
+        window.history.replaceState({path: url}, '', url);
+    }
+
+    /**
      * 移除当前url地址参数
      * @param names 需要移除的参数列表
      * @return void
