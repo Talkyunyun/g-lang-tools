@@ -52,4 +52,17 @@ export default class DateUtils {
 
         return dayjs().unix();
     }
+
+    /**
+     * 将毫秒转换成时分秒字符串
+     * @param millis
+     */
+    public static millisToHourMinuteSecondsStr(millis: number) {
+        const durationSeconds = millis / 1000;
+        const hours = Math.floor(durationSeconds / 3600);
+        const minutes = Math.floor((durationSeconds % 3600) / 60);
+        const seconds = Math.floor(durationSeconds % 60);
+
+        return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }
 }
