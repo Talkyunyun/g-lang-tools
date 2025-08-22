@@ -1,3 +1,125 @@
-.idea
-node_modules
-dist
+# ==============================================
+# .npmignore - 控制发布到 npm 的文件内容
+# 只发布构建产物，排除源码和开发环境文件
+# ==============================================
+
+# === 源代码和开发文件 ===
+src/                        # TypeScript 源代码
+test/                       # 测试代码和测试配置
+*.test.ts                   # 测试文件
+*.test.js                   # 测试文件
+*.spec.ts                   # 规范测试文件
+*.spec.js                   # 规范测试文件
+
+# === 构建和配置文件 ===
+tsconfig.json               # TypeScript 配置
+tsconfig.*.json             # TypeScript 扩展配置
+rollup.config.js            # Rollup 构建配置
+rollup.config.mjs           # Rollup 构建配置
+rollup.config.ts            # Rollup 构建配置
+vite.config.ts              # Vite 开发配置
+vite.config.js              # Vite 开发配置
+vitest.config.ts            # Vitest 测试配置
+webpack.config.js           # Webpack 配置
+babel.config.js             # Babel 配置
+babel.config.json           # Babel 配置
+.babelrc                    # Babel 配置
+jest.config.js              # Jest 配置
+jest.config.json            # Jest 配置
+
+# === 代码质量工具配置 ===
+.eslintrc*                  # ESLint 配置
+.prettierrc*                # Prettier 配置
+.stylelintrc*               # StyleLint 配置
+.editorconfig               # 编辑器配置
+.husky/                     # Git hooks
+
+# === 依赖管理 ===
+node_modules/               # 依赖包
+yarn.lock                  # Yarn 锁定文件
+package-lock.json           # npm 锁定文件
+pnpm-lock.yaml              # pnpm 锁定文件
+.pnpm-store/                # pnpm 存储
+.yarn/                      # Yarn PnP
+.npmrc                      # npm 配置
+.yarnrc                     # Yarn 配置
+
+# === 开发环境和临时文件 ===
+.cache/                     # 缓存目录
+dist-test/                  # 测试构建目录
+coverage/                   # 测试覆盖率报告
+.nyc_output/                # 覆盖率临时文件
+*.tsbuildinfo               # TypeScript 增量编译信息
+.turbo/                     # Turbo 缓存
+.next/                      # Next.js 缓存
+.nuxt/                      # Nuxt.js 缓存
+
+# === 环境和密钥文件 ===
+.env                        # 环境变量
+.env.*                      # 环境变量文件
+.env.local                  # 本地环境变量
+.env.development            # 开发环境变量
+.env.test                   # 测试环境变量
+.env.production             # 生产环境变量
+.env.staging                # 预发布环境变量
+*.pem                       # 证书文件
+*.key                       # 密钥文件
+
+# === IDE 和编辑器 ===
+.idea/                      # IntelliJ IDEA / WebStorm
+.vscode/                    # Visual Studio Code
+*.sublime-*                 # Sublime Text
+*.swp                       # Vim 临时文件
+*.swo                       # Vim 临时文件
+*~                          # 编辑器备份文件
+
+# === 版本控制 ===
+.git/                       # Git 仓库
+.gitignore                  # Git 忽略文件
+.gitattributes              # Git 属性文件
+.github/                    # GitHub 配置
+.gitlab-ci.yml              # GitLab CI 配置
+
+# === 日志文件 ===
+*.log                       # 通用日志文件
+logs/                       # 日志目录
+npm-debug.log*              # npm 调试日志
+yarn-debug.log*             # Yarn 调试日志
+yarn-error.log*             # Yarn 错误日志
+lerna-debug.log*            # Lerna 调试日志
+
+# === 操作系统生成文件 ===
+.DS_Store                   # macOS 文件夹设置
+.DS_Store?                  # macOS 文件夹设置备份
+._*                         # macOS 资源分叉文件
+.Spotlight-V100             # macOS Spotlight 索引
+.Trashes                    # macOS 废纸篓
+ehthumbs.db                 # Windows 缩略图缓存
+Thumbs.db                   # Windows 缩略图缓存
+desktop.ini                 # Windows 文件夹配置
+
+# === 文档文件（开发用，不发布）===
+CHANGELOG.md                # 更新日志（可选发布）
+CONTRIBUTING.md             # 贡献指南
+WEBSTORM_SETUP.md           # IDE 设置指南
+USAGE_EXAMPLES.md           # 使用示例（开发用）
+PUBLISH_GUIDE.md            # 发布指南（开发用）
+TODO.md                     # 待办事项
+NOTES.md                    # 开发笔记
+
+# === 其他开发文件 ===
+*.tgz                       # 打包文件
+*.tar.gz                    # 压缩包
+.dockerignore               # Docker 忽略文件
+Dockerfile*                 # Docker 文件
+docker-compose*.yml         # Docker Compose 配置
+.gitpod.yml                 # Gitpod 配置
+.stackblitzrc               # StackBlitz 配置
+
+# ==============================================
+# 注意：以下文件会被包含在 npm 包中：
+# ✅ dist/          - 构建产物（JS + 类型定义）
+# ✅ package.json   - 包配置文件
+# ✅ README.md      - 项目文档
+# ✅ LICENSE        - 许可证文件
+# ==============================================

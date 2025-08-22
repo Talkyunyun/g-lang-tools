@@ -1,10 +1,3 @@
-import StringUtils from "./StringUtils";
-import MapUtils from "./MapUtils";
-import ListUtils from "./ListUtils";
-import BooleanUtils from "./BooleanUtils";
-import NumberUtils from "./NumberUtils";
-import ObjectUtils from "./ObjectUtils";
-
 /**
  * Cache tools
  *
@@ -13,6 +6,8 @@ import ObjectUtils from "./ObjectUtils";
  * @link  https://github.com/Talkyunyun <https://www.tool-box.vip>
  * @since 2.0
  */
+import {GBooleanUtils, GListUtils, GMapUtils, GNumberUtils, GObjectUtils, GStringUtils} from "../dataType";
+
 export default class CacheUtils {
     private static INSTANCE: CacheUtils;
     private APP_ID: string = "";
@@ -61,11 +56,11 @@ export default class CacheUtils {
      * @param value
      */
     public setNumber(key: string, value: number) {
-        if (!NumberUtils.isNumber(value)) {
+        if (!GNumberUtils.isNumber(value)) {
             throw new Error("Error value type, type is " + typeof value);
         }
 
-        this.engine.setItem(this.getKEY(key), NumberUtils.toString(value));
+        this.engine.setItem(this.getKEY(key), GNumberUtils.toString(value));
     }
 
     /**
@@ -83,7 +78,7 @@ export default class CacheUtils {
      * @param value
      */
     public setBoolean(key: string, value: boolean) {
-        this.engine.setItem(this.getKEY(key), BooleanUtils.toString(value));
+        this.engine.setItem(this.getKEY(key), GBooleanUtils.toString(value));
     }
 
     /**
@@ -92,7 +87,7 @@ export default class CacheUtils {
      * @param value
      */
     public setList(key: string, value: any[]) {
-        this.engine.setItem(this.getKEY(key), ListUtils.toString(value));
+        this.engine.setItem(this.getKEY(key), GListUtils.toString(value));
     }
 
     /**
@@ -101,7 +96,7 @@ export default class CacheUtils {
      * @param value
      */
     public setMap(key: string, value: Map<string, any>) {
-        this.engine.setItem(this.getKEY(key), MapUtils.toString(value));
+        this.engine.setItem(this.getKEY(key), GMapUtils.toString(value));
     }
 
     /**
@@ -110,7 +105,7 @@ export default class CacheUtils {
      * @param value
      */
     public setObject(key: string, value: Record<string, any>) {
-        this.engine.setItem(this.getKEY(key), ObjectUtils.toString(value));
+        this.engine.setItem(this.getKEY(key), GObjectUtils.toString(value));
     }
 
     /**
@@ -125,7 +120,7 @@ export default class CacheUtils {
                 return undefined;
             }
 
-            return NumberUtils.toNumber(value);
+            return GNumberUtils.toNumber(value);
         } catch (e) {
             console.info('Failed to get value of type number from cache. err: ', e);
         }
@@ -145,7 +140,7 @@ export default class CacheUtils {
                 return undefined;
             }
 
-            return BooleanUtils.toBoolean(value);
+            return GBooleanUtils.toBoolean(value);
         } catch (e) {
             console.info('Failed to get value of type boolean from cache. err: ', e);
         }
@@ -185,8 +180,8 @@ export default class CacheUtils {
                 return undefined;
             }
 
-            const result = ListUtils.toList(value);
-            if (ListUtils.isList(result)) {
+            const result = GListUtils.toList(value);
+            if (GListUtils.isList(result)) {
                 return result;
             }
         } catch (e) {
@@ -208,8 +203,8 @@ export default class CacheUtils {
                 return undefined;
             }
 
-            const result = MapUtils.toMap(value)
-            if (MapUtils.isMap(result)) {
+            const result = GMapUtils.toMap(value)
+            if (GMapUtils.isMap(result)) {
                 return result;
             }
         } catch (e) {
@@ -231,8 +226,8 @@ export default class CacheUtils {
                 return undefined;
             }
 
-            const result = ObjectUtils.toObject(value)
-            if (ObjectUtils.isObject(result)) {
+            const result = GObjectUtils.toObject(value)
+            if (GObjectUtils.isObject(result)) {
                 return result;
             }
         } catch (e) {
@@ -266,9 +261,9 @@ export default class CacheUtils {
      * @private
      */
     private getKEY(key: string) {
-        if (StringUtils.isString(key) && StringUtils.isNotBlank(key)) {
-            const result = (key + (StringUtils.isBlank(this.env) ? '' : `__${this.env}`)).toUpperCase();
-            if (StringUtils.isNotBlank(this.APP_ID)) {
+        if (GStringUtils.isString(key) && GStringUtils.isNotBlank(key)) {
+            const result = (key + (GStringUtils.isBlank(this.env) ? '' : `__${this.env}`)).toUpperCase();
+            if (GStringUtils.isNotBlank(this.APP_ID)) {
                 return this.APP_ID + "__" + result;
             }
 

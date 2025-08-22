@@ -1,35 +1,34 @@
 {
     "compilerOptions": {
-        "target": "es5",
-        "module": "es6",
-        "allowJs": true,
-        "strict": true,
-        "noImplicitAny": true,
-        "sourceMap": false,
-        "skipLibCheck": true,
-        "noEmitHelpers": true,
-        "importHelpers": true,
-        "allowUnreachableCode": true,
-        "allowSyntheticDefaultImports": true,
-        "experimentalDecorators": true,
-        "esModuleInterop": true,
-        "removeComments": false,
-        "declaration": true,
-        "lib": [
-            "es2017",
-            "dom"
-        ],
-        "typeRoots": [
-            "node_modules/@types"
-        ],
+        "target": "ES2020",
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "baseUrl": ".",
+        "paths": {
+            "g-lang-tools": ["./dist/index.d.ts"],
+            "g-lang-tools/*": ["./dist/*"]
+        },
+        "lib": ["ES2020", "DOM"],
+        "types": ["node"],
         "outDir": "./dist",
-        "baseUrl": "./",
-        "strictNullChecks": true,
+        "rootDir": "./src",
+        "strict": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "declaration": true,
+        "declarationMap": true,
+        "sourceMap": true,
+        "removeComments": false,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "noImplicitReturns": false,
-        "noFallthroughCasesInSwitch": false,
-        "moduleResolution": "node"
+        "noFallthroughCasesInSwitch": true,
+        "exactOptionalPropertyTypes": false,
+        "noUncheckedIndexedAccess": true,
+        "importHelpers": true,
+        "strictNullChecks": false
     },
     "include": [
         "src/**/*"

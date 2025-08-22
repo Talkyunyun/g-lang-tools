@@ -7,7 +7,8 @@
  * @link  https://github.com/Talkyunyun <https://www.tool-box.vip>
  * @since 2.0
  */
-import StringUtils from "./StringUtils";
+import {GStringUtils} from "../dataType";
+
 export default class CookieUtils {
     private static INSTANCE: CookieUtils;
 
@@ -31,7 +32,7 @@ export default class CookieUtils {
      * @param domain
      */
     public setDomain(domain: string) {
-        if (!StringUtils.isBlank(domain)) {
+        if (!GStringUtils.isBlank(domain)) {
             this.domain = domain;
         }
 
@@ -104,7 +105,7 @@ export default class CookieUtils {
      * @private
      */
     private getDomain(): string {
-        if (!this.domain || StringUtils.isBlank(this.domain)) {
+        if (!this.domain || GStringUtils.isBlank(this.domain)) {
             return window.location.hostname.substring(window.location.hostname.indexOf('.'));
         }
 

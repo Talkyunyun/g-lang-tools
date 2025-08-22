@@ -7,15 +7,15 @@
  * @link  https://github.com/Talkyunyun <https://www.tool-box.vip>
  * @since 2.0
  */
-import ListUtils from "./ListUtils";
-import BooleanUtils from "./BooleanUtils";
-import NumberUtils from "./NumberUtils";
-import MapUtils from "./MapUtils";
-import ObjectUtils from "./ObjectUtils";
-import StringUtils from "./StringUtils";
-import NullUtils from "./NullUtils";
-import UndefinedUtils from "./UndefinedUtils";
-import BigIntUtils from "./BigIntUtils";
+import {
+    GBigIntUtils, GBooleanUtils,
+    GListUtils,
+    GMapUtils,
+    GNullUtils, GNumberUtils,
+    GObjectUtils,
+    GStringUtils,
+    GUndefinedUtils
+} from "../dataType";
 
 export default class UrlUtils {
     /**
@@ -25,25 +25,25 @@ export default class UrlUtils {
      */
     public static filter(params?: Map<string, any>): Map<string, any> {
         const result = new Map<string, any>();
-        if (!MapUtils.isMap(params)) {
+        if (!GMapUtils.isMap(params)) {
             return result;
         }
 
         params?.forEach((value, key) => {
             // 过滤null和undefined
-            if (UndefinedUtils.isUndefined(value) || NullUtils.isNull(value)) {
+            if (GUndefinedUtils.isUndefined(value) || GNullUtils.isNull(value)) {
                 return;
             }
 
             // 过滤空字符串
-            if (StringUtils.isString(value)) {
-                if (StringUtils.isEmpty(value) || value.toLowerCase() === "all") {
+            if (GStringUtils.isString(value)) {
+                if (GStringUtils.isEmpty(value) || value.toLowerCase() === "all") {
                     return;
                 }
             }
 
             // 过滤空数组
-            if (ListUtils.isList(value) && ListUtils.isEmpty(value)) {
+            if (GListUtils.isList(value) && GListUtils.isEmpty(value)) {
                 return;
             }
 
@@ -59,7 +59,7 @@ export default class UrlUtils {
      * @param params
      */
     public static filterForObject(params?: Record<string, any>): Record<string, any> {
-        if (!ObjectUtils.isObject(params)) {
+        if (!GObjectUtils.isObject(params)) {
             return {};
         }
 
@@ -67,19 +67,19 @@ export default class UrlUtils {
         for (const name in list) {
             const value: any = list[name];
             // 过滤null和undefined
-            if (UndefinedUtils.isUndefined(value) || NullUtils.isNull(value)) {
+            if (GUndefinedUtils.isUndefined(value) || GNullUtils.isNull(value)) {
                 delete list[name]; continue;
             }
 
             // 过滤空字符串
-            if (StringUtils.isString(value)) {
-                if (StringUtils.isEmpty(value) || value.toLowerCase() === "all") {
+            if (GStringUtils.isString(value)) {
+                if (GStringUtils.isEmpty(value) || value.toLowerCase() === "all") {
                     delete list[name]; continue;
                 }
             }
 
             // 过滤空数组
-            if (ListUtils.isList(value) && ListUtils.isEmpty(value)) {
+            if (GListUtils.isList(value) && GListUtils.isEmpty(value)) {
                 delete list[name];
             }
         }
@@ -93,7 +93,7 @@ export default class UrlUtils {
      * @return {*}
      */
     public static getHashValueByName(name: string): any {
-        if (StringUtils.isEmpty(location.hash) || location.hash.indexOf('?') < 1) {
+        if (GStringUtils.isEmpty(location.hash) || location.hash.indexOf('?') < 1) {
             return null;
         }
 
@@ -165,7 +165,7 @@ export default class UrlUtils {
     public static removeCurrentForSearch(names: string[]) {
         const {origin, pathname} = window.location;
         const params = this.getSearchAll();
-        if (ListUtils.isList(names) && !ListUtils.isEmpty(names)) {
+        if (GListUtils.isList(names) && !GListUtils.isEmpty(names)) {
             names.forEach(name => params.delete(name));
         }
 
@@ -281,7 +281,7 @@ export default class UrlUtils {
      * @param isHumpToLine
      */
     public static buildQuery(params: Map<string, any>, isHumpToLine: boolean = false): string {
-        if (!MapUtils.isMap(params)) {
+        if (!GMapUtils.isMap(params)) {
             return '';
         }
 
@@ -290,7 +290,7 @@ export default class UrlUtils {
             params.forEach((v, k) => {
                 let value: any = this.anyToString(v);
                 if (value) {
-                    const name: string = isHumpToLine ? StringUtils.humpToLine(k) : k;
+                    const name: string = isHumpToLine ? GStringUtils.humpToLine(k) : k;
                     list.push(name + "=" + encodeURIComponent(value));
                 }
             });
@@ -312,7 +312,7 @@ export default class UrlUtils {
      * @return {string}
      */
     public static buildQueryForObject(params: Record<string, any>, isHumpToLine: boolean = false): string {
-        if (!ObjectUtils.isObject(params)) {
+        if (!GObjectUtils.isObject(params)) {
             return '';
         }
 
@@ -321,7 +321,7 @@ export default class UrlUtils {
             for (const k in params) {
                 let value: any = this.anyToString(params[k]);
                 if (value) {
-                    const name: string = isHumpToLine ? StringUtils.humpToLine(k) : k;
+                    const name: string = isHumpToLine ? GStringUtils.humpToLine(k) : k;
                     list.push(name + "=" + encodeURIComponent(value));
                 }
             }
@@ -343,32 +343,32 @@ export default class UrlUtils {
      */
     private static anyToString(value: any): string | undefined {
         // boolean类型
-        if (BooleanUtils.isBoolean(value)) {
-            return BooleanUtils.toString(value);
+        if (GBooleanUtils.isBoolean(value)) {
+            return GBooleanUtils.toString(value);
         }
 
         // bigInt类型
-        if (BigIntUtils.isBigInt(value)) {
-            return BigIntUtils.toString(value);
+        if (GBigIntUtils.isBigInt(value)) {
+            return GBigIntUtils.toString(value);
         }
 
         // 数字类型
-        if (NumberUtils.isNumber(value)) {
-            return NumberUtils.toString(value);
+        if (GNumberUtils.isNumber(value)) {
+            return GNumberUtils.toString(value);
         }
 
         // map类型
-        if (MapUtils.isMap(value)) {
-            return MapUtils.toString(value);
+        if (GMapUtils.isMap(value)) {
+            return GMapUtils.toString(value);
         }
 
         // list和object类型
-        if (ListUtils.isList(value) || ObjectUtils.isObject(value)) {
+        if (GListUtils.isList(value) || GObjectUtils.isObject(value)) {
             return JSON.stringify(value);
         }
 
         // 字符串类型
-        if (StringUtils.isString(value) && StringUtils.isNotBlank(value)) {
+        if (GStringUtils.isString(value) && GStringUtils.isNotBlank(value)) {
             return value;
         }
 
@@ -383,32 +383,32 @@ export default class UrlUtils {
      */
     private static stringToAny(value: string): any {
         // 判断空字符串
-        if (StringUtils.isEmpty(value)) {
+        if (GStringUtils.isEmpty(value)) {
             return "";
         }
 
         // 判断Null类型
-        if (NullUtils.isNull(NullUtils.toNull(value))) {
+        if (GNullUtils.isNull(GNullUtils.toNull(value))) {
             return null;
         }
 
         // 判断undefined类型
-        if (UndefinedUtils.isUndefined(UndefinedUtils.toUndefined(value))) {
+        if (GUndefinedUtils.isUndefined(GUndefinedUtils.toUndefined(value))) {
             return undefined;
         }
 
         // 判断布尔类型
-        const boolean = BooleanUtils.toBoolean(value);
-        if (BooleanUtils.isBoolean(boolean)) {
+        const boolean = GBooleanUtils.toBoolean(value);
+        if (GBooleanUtils.isBoolean(boolean)) {
             return boolean;
         }
 
         // 判断数字类型，需要排除首位为0的情况
         if (value == "0" || value.substring(0, 1) !== "0") {
-            const number = NumberUtils.toNumber(value);
-            if (NumberUtils.isNumber(number)) {
+            const number = GNumberUtils.toNumber(value);
+            if (GNumberUtils.isNumber(number)) {
                 if (number && number >= Number.MAX_SAFE_INTEGER) {
-                    return BigIntUtils.toBigInt(value);
+                    return GBigIntUtils.toBigInt(value);
                 }
 
                 return number;
@@ -416,20 +416,20 @@ export default class UrlUtils {
         }
 
         // map类型
-        const map = MapUtils.toMap(value);
-        if (MapUtils.isMap(map)) {
+        const map = GMapUtils.toMap(value);
+        if (GMapUtils.isMap(map)) {
             return map;
         }
 
         try {
             const data = JSON.parse(value);
             // 判断数组
-            if (ListUtils.isList(data)) {
+            if (GListUtils.isList(data)) {
                 return data;
             }
 
             // 判断对象
-            if (ObjectUtils.isObject(data)) {
+            if (GObjectUtils.isObject(data)) {
                 return data;
             }
         } catch (e) {}

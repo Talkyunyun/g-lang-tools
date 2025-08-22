@@ -7,7 +7,7 @@
  * @link  https://github.com/Talkyunyun <https://www.tool-box.vip>
  * @since 2.0
  */
-import StringUtils from "./StringUtils";
+import {GStringUtils} from "../dataType";
 
 export default class HtmlUtils {
     private static HTML_TAG: Record<string, string> = {
@@ -34,7 +34,7 @@ export default class HtmlUtils {
      * @param content
      */
     public static entityTextToHtmlTag(content: string): string {
-        if (StringUtils.isString(content) && StringUtils.isNotBlank(content)) {
+        if (GStringUtils.isString(content) && GStringUtils.isNotBlank(content)) {
             for (let name in this.HTML_TAG) {
                 const value = this.HTML_TAG[name];
                 content = content.replace(new RegExp(value, "ig"), name);
@@ -55,7 +55,7 @@ export default class HtmlUtils {
      * @param content html内容
      */
     public static htmlTagToEntityText(content: string) {
-        if (StringUtils.isString(content) && StringUtils.isNotBlank(content)) {
+        if (GStringUtils.isString(content) && GStringUtils.isNotBlank(content)) {
             return content.replace(/[&|\<|\>|\"|\'|≤|≥|+|\-|×|÷|\⋅|(|)\|]/ig, (tag: string) => {
                 return this.HTML_TAG[tag] || tag;
             });

@@ -7,7 +7,7 @@
  * @link  https://github.com/Talkyunyun <https://www.tool-box.vip>
  * @since 2.0
  */
-import {GTypes} from "../type";
+ import {GlobalTypes} from "../types/GlobalTypes";
 
 export default class ClientUtils {
     /**
@@ -42,7 +42,7 @@ export default class ClientUtils {
      * @public
      */
     public static isIOS(): boolean {
-        return this.getOsFromUA() === GTypes.OsTypes.IOS;
+        return this.getOsFromUA() === GlobalTypes.OsTypes.IOS;
     }
 
     /**
@@ -51,19 +51,19 @@ export default class ClientUtils {
      * @public
      */
     public static isANDROID(): boolean {
-        return this.getOsFromUA() === GTypes.OsTypes.ANDROID;
+        return this.getOsFromUA() === GlobalTypes.OsTypes.ANDROID;
     }
 
     public static isMac(): boolean {
-        return this.getOsFromUA() === GTypes.OsTypes.MAC;
+        return this.getOsFromUA() === GlobalTypes.OsTypes.MAC;
     }
 
     public static isWindows(): boolean {
-        return this.getOsFromUA() === GTypes.OsTypes.WINDOWS;
+        return this.getOsFromUA() === GlobalTypes.OsTypes.WINDOWS;
     }
 
     public static isHarmony(): boolean {
-        return this.getOsFromUA() === GTypes.OsTypes.HARMONY;
+        return this.getOsFromUA() === GlobalTypes.OsTypes.HARMONY;
     }
 
     /**
@@ -138,33 +138,33 @@ export default class ClientUtils {
      * @return {string} OS_ENUM
      * @private
      */
-    public static getOsFromUA(): GTypes.OsTypes {
+    public static getOsFromUA(): GlobalTypes.OsTypes {
         try {
             const userAgent = window.navigator.userAgent;
             if (userAgent.match(/iPhone|iPad|iPod|iOS/i)) {
-                return GTypes.OsTypes.IOS;
+                return GlobalTypes.OsTypes.IOS;
             }
 
             if (userAgent.match(/Android/i)) {
-                return GTypes.OsTypes.ANDROID;
+                return GlobalTypes.OsTypes.ANDROID;
             }
 
             if (userAgent.match(/OpenHarmony/i)) {
-                return GTypes.OsTypes.HARMONY;
+                return GlobalTypes.OsTypes.HARMONY;
             }
 
             if (userAgent.match(/mac/i)) {
-                return GTypes.OsTypes.MAC;
+                return GlobalTypes.OsTypes.MAC;
             }
 
             if (userAgent.match(/win/i)) {
-                return GTypes.OsTypes.WINDOWS;
+                return GlobalTypes.OsTypes.WINDOWS;
             }
         } catch (e) {
             console.warn("从UA中获取OS参数失败", e);
         }
 
-        return GTypes.OsTypes.UNKNOWN;
+        return GlobalTypes.OsTypes.UNKNOWN;
     }
 
     /**
